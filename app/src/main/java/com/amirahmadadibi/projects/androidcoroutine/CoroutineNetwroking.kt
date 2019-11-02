@@ -2,6 +2,7 @@ package com.amirahmadadibi.projects.androidcoroutine
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_coroutine_netwroking.*
 import kotlinx.coroutines.*
@@ -13,9 +14,10 @@ import kotlin.coroutines.CoroutineContext
 
 class CoroutineNetwroking() : AppCompatActivity(), CoroutineScope {
     private lateinit var job: Job
+    lateinit var handler: CoroutineExceptionHandler
     //makeing a wo
     override val coroutineContext: CoroutineContext
-        get() = Main + job
+        get() = Main + handler + job
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,7 +33,11 @@ class CoroutineNetwroking() : AppCompatActivity(), CoroutineScope {
 
             }
 
+            handler = CoroutineExceptionHandler { coroutineContext, throwable ->
+                Log.d("tagxx", throwable.message!!)
+            }
         }
+
         //create an independent scope and doing the work
         CoroutineScope(IO).launch {
 
@@ -40,7 +46,7 @@ class CoroutineNetwroking() : AppCompatActivity(), CoroutineScope {
 
 
     suspend fun makeCall(): String {
-        var client = OkHttpClient()
+        val client = OkHttpClient()
         val request = Request.Builder().url("https://jsonplaceholder.typicode.com/todos/1")
             .build()
 
