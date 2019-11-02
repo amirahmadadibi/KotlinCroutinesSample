@@ -33,13 +33,13 @@ class MainActivity : AppCompatActivity() {
         delay(1000)
 
         withContext(Main) {
-            textViewStatus.text = "job one done! #$i"
+            textViewStatus.text = "job one done! # $i"
         }
 
         getResultTwoFromApi()
         i++
         withContext(Main){
-            textViewStatus.text  = "job two done! #$i"
+            textViewStatus.text  = "job two done! # $i"
         }
 
         return "#Job number one done!"
@@ -48,4 +48,5 @@ class MainActivity : AppCompatActivity() {
     private suspend fun getResultTwoFromApi() {
         delay(2000)
     }
+
 }
