@@ -4,6 +4,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import kotlinx.android.synthetic.main.activity_coroutine_netwroking.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import okhttp3.OkHttpClient
 import okhttp3.Request
 
@@ -13,7 +16,9 @@ class CoroutineNetwroking : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_coroutine_netwroking)
         button.setOnClickListener {
-            makeCall()
+            GlobalScope.launch(Dispatchers.IO) {
+                makeCall()
+            }
         }
     }
 
@@ -29,4 +34,3 @@ class CoroutineNetwroking : AppCompatActivity() {
 
     }
 }
-§
